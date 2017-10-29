@@ -1,6 +1,10 @@
 # anim
 Blender-Python Animation files
 
+NOTE!!! :
+From now until I create a all-inclusive interface, when you open  the file in Blender, you  will need to click the "Run Script"
+button in the lower right panel of the text editor, that way you will get all the options that you can modify to change the  characteristics of the movements, which is important! If you do not do that, you will have no way of seeing all of your options, nor  will you even see the character's bones.
+
 In 2007, when I was using Maya, I created a program called Walkerman, a MEL program that automatically animated a Biped, Quadraped, Bird, Centaur or a Spider . . . Now I am working on a similar project for Blender (www.blender.org).  This program will allow you to choosing a character type, and it will create the skeleton for the character, skin the character to the skeleton and, when you press the play button the character will walk or run. The quadraped will also hop or gallop. The project will be done via Python, it does not require any fooling with IK, and it has "Stabilization" (it adds bones that allow the character to move freely without major distortions in the character skin), which minimizes having to paint skin weights.
 
 When created, the bones are in the pose position, and you then attach the character to it, hit PLAY, and the character walks or runs away. Just like that . . . . if you hit rewind, you can re-pose the character. You can make the character walk or run in any direction, or create a crowd of characters, all walking or running in different directions. You can manipulate all the fingers of each hand at once, to open or close the hand or you can control the fingers individually. The old Walkerman program is approaching 30,000 downloads . . . I'd like to  see the same or better results for the Instant Animation program for Blender . . .  This is a Kickstarter project, https://www.kickstarter.com/projects/1109488957/instant-animation-for-blender-3d with a goal of completing it by December.
