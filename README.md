@@ -1,8 +1,7 @@
 # anim
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Blender-Python Animation files
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Blender-Python Animation files -
 
 NOTE!!! :
 Biped posing problem has been  solved.  The method for animating a character
