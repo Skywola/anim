@@ -1,7 +1,9 @@
 # anim
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Blender-Python Animation files
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 NOTE!!! :
 Biped posing problem has been  solved.  The method for animating a character
 has changed and is listed below.  The Blend file  now contains the character
