@@ -1,7 +1,47 @@
 # anim
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Blender-Python Animation files
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 NOTE!!! :
+Biped posing problem has been  solved.  The method for animating a character
+has changed and is listed below.  The Blend file  now contains the character
+mest I am using as a calibrator, you can freely use it or sub in your own 
+character, just make sure you set the bones in a similar way on your character,
+or you may have some extra skinning or painting weights to do.
+
+Steps:
+1. Run the script in the text editor by clicking on the "Run Script" button on the  lower right
+2. If the control panel is not open in the 3D view, push the "n" button to bring up the panel.
+3. Scroll to the bottom of the panel if needed by placing your cursor over  the  panel and rolling 
+    the mouse button or  clicking and dragging the scroll bar.
+4. Click on the  "Build Biped" button.
+5. Hold down the shift button, select the  mesh, then select the bones. 
+    (Make sure  you are in the object mode, you  should  already be.)
+6. When both the  mesh and the bones are selected, hold down the control  button
+   and press the "p" button at the same time.  You should  see a menu  come up 
+   with the option "With envelope weights".  If it does not show (Blender bug) ,
+   re-select the mesh and then the bones and try again.  Once you get it click on
+  it, and  the character will be skinned to the bone set.
+7. Click "Activate Biped Panel".
+8. Select the play button and  make  any adjustments you  want, like 
+    clicking the "Drop Arms" button!
+
+Overall, I am still not satisfied with the walk performance, so I will likely
+be adding tweaks  here  and there, but the greatest programming difficulties 
+have been overcome, so the rest should be  relatively light work, and, as
+mentioned, you can  tweak the controls yourself to change the movement.
+For now, it will be onward to solving the  posing problem for any other 
+characters it may effect, then once that is done, I will combine all the 
+characters into one  functioning interface.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+OLDER INFO - for characters not modified after 12-30-2017
 From now until I create a all-inclusive interface, when you open  the file in Blender, you  will need to click the "Run Script"
 button in the lower right panel of the text editor, that way you will get all the options that you can modify to change the  characteristics of the movements, which is important! If you do not do that, you will have no way of seeing all of your options, nor  will you even see the character's bones.
 
