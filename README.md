@@ -6,7 +6,7 @@ Blender-Python Animation files -
 NOTE!!! :
 Biped posing problem has been  solved.  The method for animating a character
 has changed and is listed below.  The Blend file  now contains the character
-mest I am using as a calibrator, you can freely use it or sub in your own 
+mesh I am using as a calibrator, you can freely use it or sub in your own 
 character, just make sure you set the bones in a similar way on your character,
 or you may have some extra skinning or painting weights to do.
 
