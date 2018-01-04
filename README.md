@@ -1,3 +1,4 @@
+
 # anim
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -23,6 +24,9 @@ Steps:
    with the option "With envelope weights".  If it does not show (Blender bug) ,
    re-select the mesh and then the bones and try again.  Once you get it click on
   it, and  the character will be skinned to the bone set.
+  IMPORTANT: USE ENVELOPE WEIGHTS FOR THE BIPED, BUT USE AUTOMATIC WEIGHTS FOR
+  THE BIRD . . . . I am still experimenting weights, I would like to be able
+  to use the same settings for both, but so far I have not reached that point.
 7. Click "Activate Biped Panel".
 8. Select the play button and  make  any adjustments you  want, like 
     clicking the "Drop Arms" button!
