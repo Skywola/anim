@@ -45,6 +45,8 @@ Steps:
     clicking the "Drop Arms" button!
 
 
+Addendum:  Be attentive when working with the wings;  it is easy to get confused between the "bird wings" and the "solo wings", and then  wonder why the program is not responding to the  wings you are  working on . . . you have to be in the right panel and switch panels when you are changing from the bird wings to the solo wings and vice versa.   I have added captions to the buttons to help prevent this from  happening, so the buttons will say "bird" or "solo", so you have to keep track of it.   I mention it because even I, the programmer  himself, has become confused about it.   If you experience the wings not responding when you make a change this is the first thing you should suspect as the problem, select the character you  want to work on and click on the "Get Character Panel" button each time  you switch from one character to another.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
