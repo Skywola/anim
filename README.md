@@ -4,7 +4,7 @@
 This program allows you to animate a biped, bird, quadruped, centaur, or a spider very 
 rapidly in Blender. (See www.blender.org)
 You just click the button to add the bones, parent the character mesh to the bones, hit 
-the play button, set the speed, and off it goes. You will need to download the Blender file from this Site, 
+the play button, set the speed, and off it goes. You will need to download the Blender file from this site, 
 this is not yet a plugin, I want it to be out for a while before I add it as a plugin. 
 
 The tutorials are in two parts:
