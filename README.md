@@ -11,6 +11,7 @@ IMPORTANT NOTE: FROM THIS TIME FORWARD, THE INSTANT ANIMATION PANEL WILL NO LONG
    RIGHT-SIDE PANEL, BUT ON THE RIGHT-SIDE PANEL, LISTED UNDER THE FAR-LEFT SUB-MENU AS "INSTANT ANIMATION",
    SO IN ORDER TO BRING UP THE PROPER PANEL, PRESS "T" WHILE YOUR MOUSE IS OVER THE 3D VIEW.
 
+Note also, the plugin will not include the basic models for each character type.
 
 The tutorials are in three parts:
 
@@ -20,19 +21,22 @@ Part 2: https://youtu.be/25WA77n_gOI     More in depth.
 
 Part 3: Coming soon.           Absolutely essential to understand wings and how to animate them.
 
-The tutorial says that the quadruped has no ears, but they have now been added . . . 
 To truly understand how to make the program work for you, you should watch BOTH 
 tutorials. Questions, comments, ideas are welcome. Watch the tutorials to get started.
 
-
 The method for animating a character is listed below, but the tutorials are more detailed and up-to-date.  
-The Blend file now contains each character mesh I am used as a calibrator, you can freely use them or sub 
-in your own character, just make sure you set the bones in a similar way on your character, or you may 
-have some extra skinning or painting weights to do.
+The Blend file now contains each character mesh I used as a calibrator, you can freely use them or sub 
+in your own character.
 
+Addendum:  Be attentive when working with the wings;  it is easy to get confused between the "Bird Wings" and the "Solo Wings", and then  wonder why the program is not responding to the  wings you are  working on . . . you have to be in the right panel and switch panels when you are changing from the bird wings to the solo wings and vice versa.   I have added captions to the buttons to help prevent this from  happening, so the buttons will say "bird" or "solo", so you have to keep track of it.   I mention it because even I, the programmer himself, have become confused about it.  If you experience the wings not responding when you make a change this is the first thing you should suspect as the problem, select the character you  want to work on and click on the "Get Character Panel" button each time  you switch from one character or wing set to another.
 
 Steps:
-1. Run the script in the text editor by clicking on the "Run Script" button on the  lower right
+1. A. If you downloaded the .blend file:
+         Run the script in the text editor by clicking on the "Run Script" button on the  lower right
+   B. If you downloaded the plugin file:
+      In Blender, go to File > User Preferences, then click the button at the bottom of the window called
+      "Install Addon From File".  Navigate to the plugin file (IA_Plugin.py) you downloaded, select it, and
+      on the upper right, click the button "Install Add-on From File".  
 2. If the control panel is not open in the 3D view, push the "t" button to bring up the panel.
 3. Look on the far left of the panel for the sub-menu "Instant Animation", and click it.
 4. Click on one of the character build buttons.
@@ -47,10 +51,6 @@ Steps:
 8. To make the character move, look for the "Speed" control and enter a "9", then your enter key.
 9. Select the play button and make any adjustments you want, on the controls listed.
 
-
-Addendum:  Be attentive when working with the wings;  it is easy to get confused between the "bird wings" and the "solo wings", and then  wonder why the program is not responding to the  wings you are  working on . . . you have to be in the right panel and switch panels when you are changing from the bird wings to the solo wings and vice versa.   I have added captions to the buttons to help prevent this from  happening, so the buttons will say "bird" or "solo", so you have to keep track of it.   I mention it because even I, the programmer  himself, has become confused about it.   If you experience the wings not responding when you make a change this is the first thing you should suspect as the problem, select the character you  want to work on and click on the "Get Character Panel" button each time  you switch from one character to another.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This program will automatically animated a Biped, Quadruped, Bird, Centaur or a Spider . . . in Blender (www.blender.org).  This project, (When completed) will allow you to choosing a character type, and it will create the skeleton for the character, skin the character to the skeleton and, when you press the play button the character will walk or run. The quadraped will also hop or gallop. The project will be done via Python, it does not require any fooling with IK, and it has "Stabilization" (it adds bones that allow the character to move freely without major distortions in the character skin), which minimizes having to paint skin weights.
