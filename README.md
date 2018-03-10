@@ -28,14 +28,12 @@ The method for animating a character is listed below, but the tutorials are more
 The Blend file now contains each character mesh I used as a calibrator, you can freely use them or sub 
 in your own character.
 
-Addendum:  Be attentive when working with the wings;  it is easy to get confused between the "Bird Wings" and the "Solo Wings", and then  wonder why the program is not responding to the  wings you are  working on . . . you have to be in the right panel and switch panels when you are changing from the bird wings to the solo wings and vice versa.   I have added captions to the buttons to help prevent this from  happening, so the buttons will say "bird" or "solo", so you have to keep track of it.   I mention it because even I, the programmer himself, have become confused about it.  If you experience the wings not responding when you make a change this is the first thing you should suspect as the problem, select the character you  want to work on and click on the "Get Character Panel" button each time  you switch from one character or wing set to another.
-
 Steps:
 1. A. If you downloaded the .blend file:
          Run the script in the text editor by clicking on the "Run Script" button on the  lower right
    B. If you downloaded the plugin file:
       In Blender, go to File > User Preferences, then click the button at the bottom of the window called
-      "Install Addon From File".  Navigate to the plugin file (IA_Plugin.py) you downloaded, select it, and
+      "Install Addon From File".  Navigate to the plugin file (IA_V2.0_Plugin.py) you downloaded, select it, and
       on the upper right, click the button "Install Add-on From File".  
 2. If the control panel is not open in the 3D view, push the "t" button to bring up the panel.
 3. Look on the far left of the panel for the sub-menu "Instant Animation", and click it.
@@ -50,6 +48,8 @@ Steps:
 7. Click "Get Character Panel".
 8. To make the character move, look for the "Speed" control and enter a "9", then your enter key.
 9. Select the play button and make any adjustments you want, on the controls listed.
+
+Addendum:  Be attentive when working with the wings;  it is easy to get confused between the "Bird Wings" and the "Solo Wings", and then  wonder why the program is not responding to the  wings you are  working on . . . you have to be in the right panel and switch panels when you are changing from the bird wings to the solo wings and vice versa.   I have added captions to the buttons to help prevent this from  happening, so the buttons will say "bird" or "solo", so you have to keep track of it.   I mention it because even I, the programmer himself, have become confused about it.  If you experience the wings not responding when you make a change this is the first thing you should suspect as the problem, select the character you  want to work on and click on the "Get Character Panel" button each time  you switch from one character or wing set to another.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
