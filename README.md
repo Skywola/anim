@@ -7,11 +7,18 @@ You just click the button to add the bones, parent the character mesh to the bon
 the play button, set the speed, and off it goes. You will need to download the Blender file from this site, 
 this is not yet a plugin, I want it to be out for a while before I add it as a plugin. 
 
-The tutorials are in two parts:
+IMPORTANT NOTE: FROM THIS TIME FORWARD, THE INSTANT ANIMATION PANEL WILL NO LONGER BE LOCATED ON THE
+   RIGHT-SIDE PANEL, BUT ON THE RIGHT-SIDE PANEL, LISTED UNDER THE FAR-LEFT SUB-MENU AS "INSTANT ANIMATION",
+   SO IN ORDER TO BRING UP THE PROPER PANEL, PRESS "T" WHILE YOUR MOUSE IS OVER THE 3D VIEW.
 
-Part One here: https://youtu.be/XgPWicNP1ng 
 
-Part Two here: https://youtu.be/25WA77n_gOI 
+The tutorials are in three parts:
+
+Part 1: https://youtu.be/XgPWicNP1ng     General start-up get-it-running info.
+
+Part 2: https://youtu.be/25WA77n_gOI     More in depth.
+
+Part 3: Coming soon.           Absolutely essential to understand wings and how to animate them.
 
 The tutorial says that the quadruped has no ears, but they have now been added . . . 
 To truly understand how to make the program work for you, you should watch BOTH 
@@ -26,10 +33,9 @@ have some extra skinning or painting weights to do.
 
 Steps:
 1. Run the script in the text editor by clicking on the "Run Script" button on the  lower right
-2. If the control panel is not open in the 3D view, push the "n" button to bring up the panel.
-3. Scroll to the bottom of the panel if needed by placing your cursor over  the  panel and rolling 
-    the mouse button or  clicking and dragging the scroll bar.
-4. Click on the  "Build Biped" button.
+2. If the control panel is not open in the 3D view, push the "t" button to bring up the panel.
+3. Look on the far left of the panel for the sub-menu "Instant Animation", and click it.
+4. Click on one of the character build buttons.
 5. Hold down the shift button, select the  mesh, then select the bones. 
     (Make sure  you are in the object mode, you  should  already be.)
 6. When both the  mesh and the bones are selected, hold down the control  button
@@ -37,12 +43,9 @@ Steps:
    with the option "With envelope weights".  If it does not show (Blender bug) ,
    re-select the mesh and then the bones and try again.  Once you get it click on
   it, and  the character will be skinned to the bone set.
-  IMPORTANT: USE ENVELOPE WEIGHTS FOR THE BIPED, BUT USE AUTOMATIC WEIGHTS FOR
-  THE BIRD . . . . I am still experimenting weights, I would like to be able
-  to use the same settings for both, but so far I have not reached that point.
-7. Click "Activate Biped Panel".
-8. Select the play button and  make  any adjustments you  want, like 
-    clicking the "Drop Arms" button!
+7. Click "Get Character Panel".
+8. To make the character move, look for the "Speed" control and enter a "9", then your enter key.
+9. Select the play button and make any adjustments you want, on the controls listed.
 
 
 Addendum:  Be attentive when working with the wings;  it is easy to get confused between the "bird wings" and the "solo wings", and then  wonder why the program is not responding to the  wings you are  working on . . . you have to be in the right panel and switch panels when you are changing from the bird wings to the solo wings and vice versa.   I have added captions to the buttons to help prevent this from  happening, so the buttons will say "bird" or "solo", so you have to keep track of it.   I mention it because even I, the programmer  himself, has become confused about it.   If you experience the wings not responding when you make a change this is the first thing you should suspect as the problem, select the character you  want to work on and click on the "Get Character Panel" button each time  you switch from one character to another.
