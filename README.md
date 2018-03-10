@@ -8,8 +8,9 @@ the play button, set the speed, and off it goes. You will need to download the B
 this is not yet a plugin, I want it to be out for a while before I add it as a plugin. 
 
 IMPORTANT NOTE: FROM THIS TIME FORWARD, THE INSTANT ANIMATION PANEL WILL NO LONGER BE LOCATED ON THE
-   RIGHT-SIDE PANEL, BUT ON THE LEFT-SIDE PANEL, LISTED UNDER THE FAR-LEFT SUB-MENU AS "INSTANT ANIMATION",
-   SO IN ORDER TO BRING UP THE PROPER PANEL, PRESS "T" WHILE YOUR MOUSE IS OVER THE 3D VIEW.
+   RIGHT-SIDE PANEL, BUT ON THE LEFT-SIDE PANEL, LISTED UNDER THE FAR-LEFT VERTICALLY LOCATED SUB-MENU 
+   AS "INSTANT ANIMATION", IN ORDER TO BRING UP THE PROPER PANEL, PRESS "T" WHILE YOUR MOUSE IS OVER 
+   THE 3D VIEW.
 
 Note also, the plugin will not include the basic models for each character type.
 
