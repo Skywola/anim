@@ -16,11 +16,10 @@ Note also, the plugin will not include the basic models for each character type.
 
 The tutorials are in three parts:
 
-Part 1: https://youtu.be/XgPWicNP1ng     General start-up get-it-running info.
+Part 1: https://youtu.be/B0P1kZtsqjE     General start-up get-it-running info.
 
-Part 2: https://youtu.be/25WA77n_gOI     More in depth.
+Part 2: https://youtu.be/APiFoEbxS8E     More in depth.
 
-Part 3: Coming soon.           Absolutely essential to understand wings and how to animate them.
 
 To truly understand how to make the program work for you, you should watch BOTH 
 tutorials. Questions, comments, ideas are welcome. Watch the tutorials to get started.
