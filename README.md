@@ -14,7 +14,7 @@ IMPORTANT NOTE: FROM THIS TIME FORWARD, THE INSTANT ANIMATION PANEL WILL NO LONG
 
 Note also, the plugin will not include the basic models for each character type.
 
-The tutorials are in three parts:
+The tutorials are in two parts:
 
 Part 1: https://youtu.be/B0P1kZtsqjE     General start-up get-it-running info.
 
