@@ -1,16 +1,19 @@
 
 # anim
 
+This code is open source, you are free to use it, modify it. Simply give credit where 
+credit is due, by that I would mean, simply that I was the original author of the first 
+manifestation of this program.
+
 This program allows you to animate a biped, bird, quadruped, centaur, or a spider very 
 rapidly in Blender. (See www.blender.org)
 You just click the button to add the bones, parent the character mesh to the bones, hit 
 the play button, set the speed, and off it goes. You will need to download the Blender file from this site, 
 this is not yet a plugin, I want it to be out for a while before I add it as a plugin. 
 
-IMPORTANT NOTE: FROM THIS TIME FORWARD, THE INSTANT ANIMATION PANEL WILL NO LONGER BE LOCATED ON THE
-   RIGHT-SIDE PANEL, BUT ON THE LEFT-SIDE PANEL, LISTED UNDER THE FAR-LEFT VERTICALLY LOCATED SUB-MENU 
-   AS "INSTANT ANIMATION", IN ORDER TO BRING UP THE PROPER PANEL, PRESS "T" WHILE YOUR MOUSE IS OVER 
-   THE 3D VIEW.
+THE INSTANT ANIMATION PANEL IS NO LONGER BE LOCATED ON THE RIGHT-SIDE PANEL, BUT ON THE 
+LEFT-SIDE PANEL, LISTED UNDER THE FAR-LEFT VERTICALLY LOCATED SUB-MENU AS "INSTANT ANIMATION", 
+IN ORDER TO BRING UP THE PROPER PANEL, PRESS "T" WHILE YOUR MOUSE IS OVER THE 3D VIEW.
 
 Note also, the plugin will not include the basic models for each character type.
 
