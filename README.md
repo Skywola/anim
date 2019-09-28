@@ -1,14 +1,11 @@
 This code is open source, you are free to use it, modify it. Simply give credit where credit is due, by that I would mean, 
 simply that I was the original author of the first manifestation of this program.
-.
-.
-Coder : Shawn D Irwin (skywola@hotmail.c0m)  Replace the zero in the email address with an "o", [ trap for spambots ]
-.
-.
+
+Coder : Shawn D Irwin (skywola@hotmail.c0m)  Replace the zero in the email address with an "o", [ trap for spambots ].
+
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License 
 as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-.
-.
+
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the 
 implied warranty of MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General 
 Public License for more details.  For a copy of the GNU General Public License, see
