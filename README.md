@@ -1,6 +1,3 @@
-
-# anim
-
 This code is open source, you are free to use it, modify it. Simply give credit where credit is due, by that I would mean, 
 simply that I was the original author of the first manifestation of this program.
 .
@@ -11,7 +8,7 @@ as published by the Free Software Foundation; either version 3 of the License, o
 .
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the 
 implied warranty of MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General 
-Public License for more details.  For a copy of the GNU General Public License, see 
+Public License for more details.  For a copy of the GNU General Public License, see
 http://www.gnu.org/licenses
 
 This program allows you to animate a biped, bird, quadruped, centaur, or a spider very 
