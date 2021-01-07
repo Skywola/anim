@@ -111,9 +111,6 @@ def setShoulder(self, context):
     fn = "-(asin(clock()) * " + Shoulder_UD + ")/3.14"
     setAxisDriver(getEuler('shoulder.R'), fn, 2)
 
-#def unsetWalk(self, context):
-#    for b in bpy.data.objects[getSelectedCharacterName()].pose.bones:
-#        b.driver_remove('rotation_euler', -1)
 
 def setRun(self, context):
     cwmPanel.cycle = 4.0
@@ -459,12 +456,10 @@ def setCharacterAction(self, context):
         setAxisDriver(getEuler('rearFemurJ1.L'), femurL, 0, 'rotation_euler')
         setAxisDriver(getEuler('rearFemurJ1.R'), femurR, 0, 'rotation_euler')
         # rearTibiaJ1
-        RP = "+" + str(cwmPanel.rotatePosition) + "-.26" # Adjusted
         setAxisDriver(getEuler('rearTibiaJ1.L'), tibiaL, 0, 'rotation_euler')
         setAxisDriver(getEuler('rearTibiaJ1.R'), tibiaR, 0, 'rotation_euler')
         # rearAnkles
-        RR = str(cwmPanel.rotateRange) + " * "
-        RP = "+" + str(cwmPanel.rotatePosition) + "+.1"
+        #RR = str(cwmPanel.rotateRange) + " * "
         setAxisDriver(getEuler('rearAnkle.L'), ankleL, 0, 'rotation_euler')
         setAxisDriver(getEuler('rearAnkle.R'), ankleR, 0, 'rotation_euler')
         # rearToes
@@ -621,8 +616,8 @@ genProp.toggleLegRotation = BoolProperty(update=toggleLegAction, default=True)
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # PANELS CLASS
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-class Pose_Btn(bpy.types.Operator):
-    bl_idname = "object.pose_btn"
+class POSE_OT_btn(bpy.types.Operator):
+    bl_idname = "pose.button"
     bl_label = "Pose Character"
     bl_description = "Pose Character"
     bl_options = {"REGISTER", "UNDO"}
@@ -633,34 +628,37 @@ class Pose_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Character_Panel_Btn(bpy.types.Operator): 
-    # Because this is a floating panel, it is
-    # not entered as a standard _P T_ panel
-    bl_idname = "object.Character_Panel_Btn"
-    bl_label = "Get Character Control Panel"
-    bl_description = "Get Character Control Panel"
-    bl_options = {"REGISTER", "UNDO"}
-    hidden = False
-    def execute(self, context):    
-        getSelectedCharacterName()
-        bpy.ops.object.mode_set(mode='OBJECT')
-        return{'FINISHED'}
+# TODO NOT SURE IS THIS IS USED AT ALL
+# not sure if this is used or not, it was not registered at the bottom
+# class CHARACTER_OT_fltbtn(bpy.types.Operator):   # Character_Panel_Btn
+#     bl_idname = "CHARACTER_PT_fltbtn"
+#     bl_label = "Get Character Control Panel"
+#     bl_description = "Get Character Control Panel"
+#     bl_options = {"REGISTER", "UNDO"}
+#     hidden = False
+#     def execute(self, context):    
+#         getSelectedCharacterName()
+#         bpy.ops.object.mode_set(mode='OBJECT')
+#         return{'FINISHED'}
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # END of Common panel for all characters and appendages.
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # | 
-class Character(bpy.types.Operator):
-    bl_idname = "object.character"
-    bl_label = "characterPanel"
-    bl_description = "character"
-    bl_options = {"REGISTER", "UNDO"}
+# TODO this probably does not need the _OT_character, need to test that
+class CHARACTER():   # CHARACTER # CHARACTER_OT_character
+    # bl_idname = "CHARACTER_OT_character"    # object.character
+    # bl_label = "characterPanel"
+    # bl_description = "character"
+    # bl_options = {"REGISTER", "UNDO"}
     # bpy.data.objects[character.name].show_in_front
     show_in_front = True 
-    # BEGIN WITH BIPED PARTS
+    # BEGIN WITH character PARTS
     name = ""
     armature = ""
-    armatureName = ""
+    handlename = ""
+    angle = ""  # reserved for anglebone
+    # armatureName = ""  # Removed . . char.armature.name is now used instead
     x = 0
     y = 0
     z = 0
@@ -766,15 +764,27 @@ class Character(bpy.types.Operator):
     V_tailBone = (0, 0, -.14)
     tailBone = "tailBone"
     #
+    # biped back parts
     V_bBackJ1 = (0, 0, 0.1)
     bBackJ1 = "bBackJ1"
     V_bBackJ2 = (0, 0, 0.1)
     bBackJ2 = "bBackJ2"
-    V_bBackJ3 = (0, 0, 0.14)
+    V_bBackJ3 = (0, 0, 0.1)
     bBackJ3 = "bBackJ3"
     V_bBackJ4 = (0, 0, 0.1)
     bBackJ4 = "bBackJ4"
     V_bBackJ5 = (0, 0, 0.1)
+    #
+    # quadruped back parts 
+    V_qBackJ1 = (0, -0.14, -.06)
+    qBackJ1 = "qBackJ1"
+    V_qBackJ2 = (0, -.11, 0)
+    qBackJ2 = "qBackJ2"
+    V_qBackJ3 = (0, -.12, .02)
+    qBackJ3 = "qBackJ3"
+    V_qBackJ4 = (0, -.12, .02)
+    qBackJ4 = "qBackJ4"
+    V_qBackJ5 = (0, -.14, .01) 
     #
     V_clavicle = (.11, 0, -.02)
     clavicleL = "clavicle.L"
@@ -1317,10 +1327,10 @@ class Character(bpy.types.Operator):
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# CHARACTERS CLASSES: Character Creation Panel
+# CHARACTERS CLASSES: CHARACTER Creation Panel
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 class CONTROL_PT_Panel(bpy.types.Panel):
-    #bl_idname = "object.CONTROL_PT_Panel"
+    bl_idname = "CONTROL_PT_Panel"  # object.CONTROL_PT_Panel
     bl_label = "Character Control"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -1328,29 +1338,29 @@ class CONTROL_PT_Panel(bpy.types.Panel):
     bl_context = "objectmode"
     #
     def draw(self, context):
-        layout = self.layout
-        layout.row().operator("object.biped_build_btn")
-        layout.row().operator("object.centaur_build_btn")
-        layout.row().operator("object.quadruped_build_btn")
-        layout.row().operator("object.bird_build_btn")
-        layout.row().operator("object.spider_build_btn")
-        layout.row().operator("object.wings_build_btn")
+        layout = self.layout # These WERE proceeded by object.
+        layout.row().operator("build.biped_button")
+        layout.row().operator("build.centaur_button")
+        layout.row().operator("build.quadruped_button")
+        layout.row().operator("build.bird_button")
+        layout.row().operator("build.spider_button")
+        layout.row().operator("build.wings_button")
         layout.row().separator()
-        layout.row().operator("object.pose_btn")
-        layout.row().operator("object.drop_arms_btn")
-        layout.row().operator("object.walk_btn")
-        layout.row().operator("object.run_btn")
-        layout.row().operator("object.trot_btn")
-        layout.row().operator("object.gallop_btn")
-        layout.row().operator("object.pace_btn")
-        layout.row().operator("object.hop_btn")
-        layout.row().operator("object.control1_btn") # Character controls
-        layout.row().operator("object.control2_btn") # Character controls
-        layout.row().operator("object.arm_action_btn")  # Arm action toggle
-        layout.row().operator("object.leg_action_btn")  # Leg action toggle
+        layout.row().operator("pose.button")
+        layout.row().operator("drop.arms_button")
+        layout.row().operator("walk.button")
+        layout.row().operator("run.button")
+        layout.row().operator("trot.button")
+        layout.row().operator("gallop.button")
+        layout.row().operator("pace.button")
+        layout.row().operator("hop.button")
+        layout.row().operator("character.contols_1")
+        layout.row().operator("character.contols_2")
+        layout.row().operator("arm.action_button")
+        layout.row().operator("leg.action_button")
 
 class CHARACTER_OT_control_I(bpy.types.Operator):
-    bl_idname = "object.control1_btn"
+    bl_idname = "character.contols_1"   # object.control1_btn
     """Control Dialog box"""
     bl_label = "Character Controls I"
     #
@@ -1411,7 +1421,7 @@ class CHARACTER_OT_control_I(bpy.types.Operator):
         return context.window_manager.invoke_props_dialog(self)
 
 class CHARACTER_OT_control_II(bpy.types.Operator):
-    bl_idname = "object.control2_btn"
+    bl_idname = "character.contols_2"
     """Control Dialog box"""
     bl_label = "Character Controls II"
     #
@@ -1470,8 +1480,8 @@ class CHARACTER_OT_control_II(bpy.types.Operator):
         return context.window_manager.invoke_props_dialog(self)
 
 
-class Biped_Build_Btn(bpy.types.Operator):  # Button
-    bl_idname = "object.biped_build_btn"
+class BUILDBIPED_OT_btn(bpy.types.Operator):  # Biped_Build_Btn
+    bl_idname = "build.biped_button"
     bl_label = "Build Biped"
     bl_description = "Build Biped"
     bl_options = {"REGISTER", "UNDO"}
@@ -1482,8 +1492,8 @@ class Biped_Build_Btn(bpy.types.Operator):  # Button
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Centaur_Build_Btn(bpy.types.Operator):
-    bl_idname = "object.centaur_build_btn"
+class BUILDCENTAUR_OT_btn(bpy.types.Operator):
+    bl_idname = "build.centaur_button"
     bl_label = "Build Centaur"
     bl_description = "Build Centaur"
     bl_options = {"REGISTER", "UNDO"}
@@ -1494,8 +1504,8 @@ class Centaur_Build_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Quadruped_Build_Button(bpy.types.Operator):
-    bl_idname = "object.quadruped_build_btn"
+class BUILDQUADRUPED_OT_btn(bpy.types.Operator):
+    bl_idname = "build.quadruped_button"
     bl_label = "Build Quadruped"
     bl_description = "Build Quadruped"
     hidden = False
@@ -1505,8 +1515,8 @@ class Quadruped_Build_Button(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Bird_Build_Button(bpy.types.Operator):
-    bl_idname = "object.bird_build_btn"
+class BUILDBIRD_OT_btn(bpy.types.Operator):
+    bl_idname = "build.bird_button"
     bl_label = "Build Bird"
     bl_description = "Build Bird"
     hidden = False
@@ -1516,8 +1526,8 @@ class Bird_Build_Button(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Spider_Build_Button(bpy.types.Operator):
-    bl_idname = "object.spider_build_btn"
+class BUILDSPIDER_OT_btn(bpy.types.Operator):
+    bl_idname = "build.spider_button"
     bl_label = "Build Spider"
     bl_description = "Build Spider"
     hidden = False
@@ -1527,8 +1537,8 @@ class Spider_Build_Button(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Wings_Build_Button(bpy.types.Operator):  
-    bl_idname = "object.wings_build_btn"
+class BUILDWINGS_OT_btn(bpy.types.Operator):  
+    bl_idname = "build.wings_button"
     bl_label = "Build Wings"
     bl_description = "Build Wings"
     hidden = False
@@ -1546,8 +1556,8 @@ def dropArms(self, context):
         bpy.ops.object.mode_set(mode='OBJECT')
 
 # Start action buttons
-class Drop_Arms_Btn(bpy.types.Operator):
-    bl_idname = "object.drop_arms_btn"
+class DROPARMS_OT_btn(bpy.types.Operator):
+    bl_idname = "drop.arms_button"
     bl_label = "Drop Arms"
     bl_description = "Drop Character Arms"
     bl_options = {"REGISTER", "UNDO"}
@@ -1556,22 +1566,23 @@ class Drop_Arms_Btn(bpy.types.Operator):
         dropArms(self, context)
         return{'FINISHED'}
 
-class Pose_Btn(bpy.types.Operator):
-    bl_idname = "object.pose_btn"
-    bl_label = "Pose Character"
-    bl_description = "Pose Character"
-    bl_options = {"REGISTER", "UNDO"}
-    hidden = False
-    def execute(self, context):
-        bpy.context.object.pose.bones["armJ1.R"].rotation_euler[0] = 0
-        bpy.context.object.pose.bones["armJ1.L"].rotation_euler[0] = 0
-        bpy.ops.screen.animation_cancel(restore_frame=True)
-        bpy.context.scene.frame_current = 0
-        bpy.ops.object.mode_set(mode='OBJECT')
-        return{'FINISHED'}
+# This appears to be a duplicate class of the old pose buttons
+# class Pose_Btn(bpy.types.Operator):
+#     bl_idname = "object.pose_btn"
+#     bl_label = "Pose Character"
+#     bl_description = "Pose Character"
+#     bl_options = {"REGISTER", "UNDO"}
+#     hidden = False
+#     def execute(self, context):
+#         bpy.context.object.pose.bones["armJ1.R"].rotation_euler[0] = 0
+#         bpy.context.object.pose.bones["armJ1.L"].rotation_euler[0] = 0
+#         bpy.ops.screen.animation_cancel(restore_frame=True)
+#         bpy.context.scene.frame_current = 0
+#         bpy.ops.object.mode_set(mode='OBJECT')
+#         return{'FINISHED'}
 
-class Walk_Btn(bpy.types.Operator):
-    bl_idname = "object.walk_btn"
+class WALK_OT_btn(bpy.types.Operator):
+    bl_idname = "walk.button"
     bl_label = "Set Walk"
     bl_description = "Set Walk"
     bl_options = {"REGISTER", "UNDO"}
@@ -1581,8 +1592,8 @@ class Walk_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Run_Btn(bpy.types.Operator):
-    bl_idname = "object.run_btn"
+class RUN_OT_btn(bpy.types.Operator):
+    bl_idname = "run.button"
     bl_label = "Set Run"
     bl_description = "Set Run"
     bl_options = {"REGISTER", "UNDO"}
@@ -1592,8 +1603,8 @@ class Run_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Trot_Btn(bpy.types.Operator):
-    bl_idname = "object.trot_btn"
+class TROT_OT_btn(bpy.types.Operator):
+    bl_idname = "trot.button"
     bl_label = "Set Trot"
     bl_description = "Set Trot"
     bl_options = {"REGISTER", "UNDO"}
@@ -1603,8 +1614,8 @@ class Trot_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}            
 
-class Gallop_Btn(bpy.types.Operator):
-    bl_idname = "object.gallop_btn"
+class GALLOP_OT_btn(bpy.types.Operator):
+    bl_idname = "gallop.button"
     bl_label = "Set Gallop"
     bl_description = "Set Gallop"
     bl_options = {"REGISTER", "UNDO"}
@@ -1614,8 +1625,8 @@ class Gallop_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Pace_Btn(bpy.types.Operator):
-    bl_idname = "object.pace_btn"
+class PACE_OT_btn(bpy.types.Operator):
+    bl_idname = "pace.button"
     bl_label = "Set Pace"
     bl_description = "Set Pace"
     bl_options = {"REGISTER", "UNDO"}
@@ -1625,8 +1636,8 @@ class Pace_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Hop_Btn(bpy.types.Operator):
-    bl_idname = "object.hop_btn"
+class HOP_OT_btn(bpy.types.Operator):
+    bl_idname = "hop.button"
     bl_label = "Set Hop"
     bl_description = "Set Hop"
     bl_options = {"REGISTER", "UNDO"}
@@ -1636,8 +1647,8 @@ class Hop_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Arm_Action_Btn(bpy.types.Operator):
-    bl_idname = "object.arm_action_btn"
+class ARMACTION_OT_btn(bpy.types.Operator):
+    bl_idname = "arm.action_button"
     bl_label = "Toggle Arm Movement ON/OFF"
     bl_description = "Toggle Arm Movement ON/OFF"
     bl_options = {"REGISTER", "UNDO"}
@@ -1647,8 +1658,8 @@ class Arm_Action_Btn(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         return{'FINISHED'}
 
-class Leg_Action_Btn(bpy.types.Operator):
-    bl_idname = "object.leg_action_btn"
+class LEGACTION_OT_btn(bpy.types.Operator):
+    bl_idname = "leg.action_button"
     bl_description = "Toggle Leg Movement ON/OFF"
     bl_label = "Toggle Leg Movement ON/OFF"
     bl_options = {"REGISTER", "UNDO"}
@@ -1662,8 +1673,8 @@ class Leg_Action_Btn(bpy.types.Operator):
         genProp.toggleLegRotation = not genProp.toggleLegRotation
         return{'FINISHED'}
 
-class CharacterPanel():
-    bl_label = "characterpanel"
+class CHARACTERPanel():
+    bl_label = "character-panel"
     bl_description = "characterpanel"
     bl_options = {"REGISTER", "UNDO"}
     def setCharacterPropertiesPanel():
@@ -1711,10 +1722,9 @@ def getSceneObjectNumber():
 
 # Create character base for Armature and Character Class
 def buildRootArmature(charName, x=0, y=0, z=0):
-    char = Character
+    char = CHARACTER
     char.armature = bpy.data.armatures.new(charName + '_at')  # at = Armature
     char.name = charName # rgbiped01
-    char.armatureName = charName + '_at' # rgbiped01_at
     bpy.context.scene.frame_start = 0
     char.rig = bpy.data.objects.new(charName, char.armature) # rig = Armature object
     char.rig.show_in_front = True
@@ -1739,17 +1749,6 @@ def setHandle(char, VHead, VTail):
     bone = char.armature.edit_bones.new(char.name + '_bone')
     bone.head = VTail
     bone.tail = VHead
-    return bone
-
-# First input is Class of character
-def boneMirror(char, vector, mirror = False, boneRoll=0):
-    bpy.data.armatures[char.name + '_at'].use_mirror_x = mirror
-    x = vector[0]; y = vector[1]; z = vector[2]
-    bpy.ops.object.mode_set(mode='EDIT')
-    bpy.ops.armature.extrude_forked(ARMATURE_OT_extrude={"forked":True}, TRANSFORM_OT_translate={"value":(x, y, z)})
-    bone = bpy.context.object.data.bones.active
-    currentBone = bpy.context.active_bone
-    currentBone.roll = boneRoll
     return bone
 
 def getActiveBoneName():
@@ -1811,6 +1810,30 @@ def setHorizontalSpeed():
 # add this function to the namespace
 bpy.app.driver_namespace['setHorizontalSpeed'] = setHorizontalSpeed
 
+# This is not used here, its just a supplimental 
+# function for references to other ways of building bones
+# boneMirror(name, (1,0,-1))  
+def boneMirrorbyName(name, vector, mirror = False, fork=True, boneRoll=0):
+    bpy.data.armatures[name].use_mirror_x = mirror
+    x = vector[0]; y = vector[1]; z = vector[2]
+    bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.armature.extrude_forked(ARMATURE_OT_extrude={"forked":fork}, TRANSFORM_OT_translate={"value":(x, y, z)})
+    bone = bpy.context.object.data.bones.active
+    currentBone = bpy.context.active_bone
+    currentBone.roll = boneRoll
+    return currentBone.name
+
+# First input is Class of character
+def boneMirror(char, vector, mirror = False, fork=True, boneRoll=0):
+    bpy.data.armatures[char.armature.name].use_mirror_x = mirror
+    bpy.ops.object.mode_set(mode='EDIT')
+    x = vector[0]; y = vector[1]; z = vector[2]
+    bpy.ops.armature.extrude_forked(ARMATURE_OT_extrude={"forked":fork}, TRANSFORM_OT_translate={"value":(x, y, z)})
+    bone = bpy.context.object.data.bones.active
+    bpy.context.active_bone.roll = boneRoll
+    currentBone = bpy.context.active_bone
+    return currentBone.name
+    
 # Make bone creation easy
 def createBone(name="boneName", VHead=(0, 0, 0), VTail=(.1, 0, .1), roll=0, con=False):
     bpy.ops.object.mode_set(mode='EDIT')
@@ -1950,12 +1973,14 @@ def buildBipedSkeleton():
     n = getSceneObjectNumber() #Each character name is numbered sequentially.
     name = setName('biped', n)
     mod = fmod(n, 2)
+    x = 0
     if(mod == 0):
         x = 1.0 * n - mod
     else:
         x = 1.0 * -n - mod
-    #
-    y = -.4 * n; z = 1.2  # y = Head of handle (Armature point)
+
+    # y = Head of handle (Armature point)
+    y = -.4 * n; z = 1.2  
     char = buildRootArmature(name, x, y, z) #creates point
     char.name = name
     char.x = x; char.y = y; char.z = z
@@ -1964,19 +1989,16 @@ def buildBipedSkeleton():
     VTail = [0, -.3, 0] # Tail of Handle  
     bone = setHandle(char, VHead, VTail)
     bpy.data.objects[char.name].show_in_front = True
+    char.handlename = bone.name
     #
-    char.V_angle = (0, 0, 0) # Bottom (Tail)
-    char.angle = boneMirror(char, char.V_angle, False)
+    char.V_angle = (0, 0, -.06) # Bottom (Tail)
+    boneMirror(char, char.V_angle, False)
+    char.angle = bpy.context.active_bone
+    bpy.context.active_bone.name = "angle"
     char.V_hipC = (0, .1, -.1)
-    boneMirror(char, char.V_hipC, False)
-    #
-    #*** Active bone is NOT right above, but next bone above ***
-    bone_name = getActiveBoneName()
-    char.armature.edit_bones[bone_name].name = "angle"
     #
     boneMirror(char, char.V_next, False)
-    bone_name = getActiveBoneName()
-    char.armature.edit_bones[bone_name].name = "hipC"
+    bpy.context.active_bone.name = "hipC"
     # start mirroring! Can't use naming above on mirrored bones
     boneMirror(char, char.V_hip, True)
     boneMirror(char, char.V_femurJ1, True)
@@ -2029,7 +2051,7 @@ def buildBipedSkeleton():
     #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     # END OF Biped Skeleton LOWER BODY BUILD
     #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    buildHumanUpperBody(char)
+    buildHumanUpperBody(char, char.handlename)
     ob = bpy.data.objects.get(char.name)
     bpy.context.view_layer.objects.active = ob
     ob.select_set(True)
@@ -2046,47 +2068,75 @@ def buildBipedSkeleton():
 #  END BIPED SKELETON BUILD
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #|
+# This new function was created because looking up the bone name every time
+# a connection fails is far to tedious and time consuming!
+def splitname(name):
+    names = []
+    names.append(name)
+    if '_R' in name:
+        Lname = name.replace('_R', '_L')
+        names.append(Lname)
+    if '_L' in name:
+        Rname = name.replace('_L', '_R')
+        names.append(Rname)
+    #
+    return names
+    
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # COMMON FUNCTION - bui1dHumanUpperBody     To 1779
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-def buildHumanUpperBody(char, boneName="angle", V_bBackJ1 = (0, 0, 0.1)):
+# Grrrrrrrrrrrrrrrrrrrr
+def buildHumanUpperBody(char, name, V_bBackJ1 = (0, 0, 0.1)):
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones[boneName].select_tail=True
-    boneMirror(char, char.V_bBackJ1, False)
-    boneMirror(char, char.V_bBackJ2, False)
-    boneMirror(char, char.V_bBackJ3, False)
-    boneMirror(char, char.V_bBackJ4, False)
-    boneMirror(char, char.V_bBackJ5, False)
-    char.armature.edit_bones[boneName + ".001"].name = "bBackJ1"
-    char.armature.edit_bones[boneName + ".002"].name = "bBackJ2"
-    char.armature.edit_bones[boneName + ".003"].name = "bBackJ3"
-    char.armature.edit_bones[boneName + ".004"].name = "bBackJ4"
-    char.armature.edit_bones[boneName + ".005"].name = "bBackJ5"
+    #char.angle.select_tail=True
+    selectBonePartByName(name, tail=True)
+    name1 = boneMirror(char, char.V_bBackJ1, False)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_bBackJ2, False)
+    names2 = splitname(name2)
+    name3 = boneMirror(char, char.V_bBackJ3, False)
+    names3 = splitname(name3)
+    name4 = boneMirror(char, char.V_bBackJ4, False)
+    names4 = splitname(name4)
+    name5 = boneMirror(char, char.V_bBackJ5, False)
+    names5 = splitname(name5)
+    char.armature.edit_bones[names1[0]].name = "bBackJ1"
+    char.armature.edit_bones[names2[0]].name = "bBackJ2"
+    char.armature.edit_bones[names3[0]].name = "bBackJ3"
+    char.armature.edit_bones[names4[0]].name = "bBackJ4"
+    char.armature.edit_bones[names5[0]].name = "bBackJ5"
     # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     # Start arms  
     # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     # Shoulder area  
-    boneMirror(char, char.V_clavicle, True)
-    boneMirror(char, char.V_shoulder, True)
-    boneMirror(char, char.V_armJ1, True)
-    boneMirror(char, char.V_armJ2, True)
-    boneMirror(char, char.V_armJ3, True)
-    boneMirror(char, char.V_armJ4, True)
-    boneMirror(char, char.V_armJ5, True)
-    char.armature.edit_bones['bBackJ5_L'].name = "clavicle.R"
-    char.armature.edit_bones['bBackJ5_R'].name = "clavicle.L"
-    char.armature.edit_bones['bBackJ5_L.001'].name = "shoulder.R"
-    char.armature.edit_bones['bBackJ5_R.001'].name = "shoulder.L"
-    char.armature.edit_bones['bBackJ5_L.002'].name = "armJ1.R"
-    char.armature.edit_bones['bBackJ5_R.002'].name = "armJ1.L"
-    char.armature.edit_bones['bBackJ5_L.003'].name = "armJ2.R"
-    char.armature.edit_bones['bBackJ5_R.003'].name = "armJ2.L"
-    char.armature.edit_bones['bBackJ5_L.004'].name = "armJ3.R"
-    char.armature.edit_bones['bBackJ5_R.004'].name = "armJ3.L"
-    char.armature.edit_bones['bBackJ5_L.005'].name = "armJ4.R"
-    char.armature.edit_bones['bBackJ5_R.005'].name = "armJ4.L"
-    char.armature.edit_bones['bBackJ5_L.006'].name = "armJ5.R"
-    char.armature.edit_bones['bBackJ5_R.006'].name = "armJ5.L"
+    name1 = boneMirror(char, char.V_clavicle, True)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_shoulder, True)
+    names2 = splitname(name2)
+    name3 = boneMirror(char, char.V_armJ1, True)
+    names3 = splitname(name3)
+    name4 = boneMirror(char, char.V_armJ2, True)
+    names4 = splitname(name4)
+    name5 = boneMirror(char, char.V_armJ3, True)
+    names5 = splitname(name5)
+    name6 = boneMirror(char, char.V_armJ4, True)
+    names6 = splitname(name6)
+    name7 = boneMirror(char, char.V_armJ5, True)
+    names7 = splitname(name7)
+    char.armature.edit_bones[names1[1]].name = "clavicle.R"
+    char.armature.edit_bones[names1[0]].name = "clavicle.L"
+    char.armature.edit_bones[names2[1]].name = "shoulder.R"
+    char.armature.edit_bones[names2[0]].name = "shoulder.L"
+    char.armature.edit_bones[names3[1]].name = "armJ1.R"
+    char.armature.edit_bones[names3[0]].name = "armJ1.L"
+    char.armature.edit_bones[names4[1]].name = "armJ2.R"
+    char.armature.edit_bones[names4[0]].name = "armJ2.L"
+    char.armature.edit_bones[names5[1]].name = "armJ3.R"
+    char.armature.edit_bones[names5[0]].name = "armJ3.L"
+    char.armature.edit_bones[names6[1]].name = "armJ4.R"
+    char.armature.edit_bones[names6[0]].name = "armJ4.L"
+    char.armature.edit_bones[names7[1]].name = "armJ5.R"
+    char.armature.edit_bones[names7[0]].name = "armJ5.L"
     # Middle finger  
     boneMirror(char, char.V_wristBase2, True)
     boneMirror(char, char.V_midJ1, True)
@@ -2170,23 +2220,31 @@ def buildHumanUpperBody(char, boneName="angle", V_bBackJ1 = (0, 0, 0.1)):
     #
     # Resume spine
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ5"].select_tail=True
-    boneMirror(char, char.V_neckJ1, False)
-    boneMirror(char, char.V_neckJ2, False)
-    boneMirror(char, char.V_neckJ3, False)
-    boneMirror(char, char.V_neckJ4, False)
-    boneMirror(char, char.V_headBase, False)
-    boneMirror(char, char.V_eyeLevel, False)
-    boneMirror(char, char.V_headTop, False)
-    boneMirror(char, char.V_headFore, False)
-    char.armature.edit_bones['bBackJ5.001'].name = "neckJ1"
-    char.armature.edit_bones['bBackJ5.002'].name = "neckJ2"
-    char.armature.edit_bones['bBackJ5.003'].name = "neckJ3"
-    char.armature.edit_bones['bBackJ5.004'].name = "neckJ4"
-    char.armature.edit_bones['bBackJ5.005'].name = "headBase"
-    char.armature.edit_bones['bBackJ5.006'].name = "eyeLevel"
-    char.armature.edit_bones['bBackJ5.007'].name = "headTop"
-    char.armature.edit_bones['bBackJ5.008'].name = "headFore"
+    selectBonePartByName("bBackJ5", tail=True)
+    name1 = boneMirror(char, char.V_neckJ1, False)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_neckJ2, False)
+    names2 = splitname(name2)
+    name3 = boneMirror(char, char.V_neckJ3, False)
+    names3 = splitname(name3)
+    name4 = boneMirror(char, char.V_neckJ4, False)
+    names4 = splitname(name4)
+    name5 = boneMirror(char, char.V_headBase, False)
+    names5 = splitname(name5)
+    name6 = boneMirror(char, char.V_eyeLevel, False)
+    names6 = splitname(name6)
+    name7 = boneMirror(char, char.V_headTop, False)
+    names7 = splitname(name7)
+    name8 = boneMirror(char, char.V_headFore, False)
+    names8 = splitname(name8)
+    char.armature.edit_bones[names1[0]].name = "neckJ1"
+    char.armature.edit_bones[names2[0]].name = "neckJ2"
+    char.armature.edit_bones[names3[0]].name = "neckJ3"
+    char.armature.edit_bones[names4[0]].name = "neckJ4"
+    char.armature.edit_bones[names5[0]].name = "headBase"
+    char.armature.edit_bones[names6[0]].name = "eyeLevel"
+    char.armature.edit_bones[names7[0]].name = "headTop"
+    char.armature.edit_bones[names8[0]].name = "headFore"
     # jaw
     bpy.ops.armature.select_all(action='DESELECT')
     char.armature.edit_bones["neckJ4"].select_tail=True
@@ -2230,43 +2288,53 @@ def buildHumanUpperBody(char, boneName="angle", V_bBackJ1 = (0, 0, 0.1)):
     # Add front fix
     bpy.ops.armature.select_all(action='DESELECT')
     char.armature.edit_bones["bBackJ5"].select_tail=True
-    boneMirror(char, char.V_fixChestFront, False)    
-    boneMirror(char, char.V_fixChestFront1, True)
-    boneMirror(char, char.V_fixChestFront2, True)
-    char.armature.edit_bones['bBackJ5.001'].name = "fixChestFront"
-    char.armature.edit_bones['bBackJ5.001_R'].name = "fixChestFront1.L"
-    char.armature.edit_bones['bBackJ5.001_L'].name = "fixChestFront1.R"
-    char.armature.edit_bones['bBackJ5.001_R.001'].name = "fixChestFront2.L"
-    char.armature.edit_bones['bBackJ5.001_L.001'].name = "fixChestFront2.R"
+    name1 = boneMirror(char, char.V_fixChestFront, False)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_fixChestFront1, True)
+    names2 = splitname(name2)
+    name3 = boneMirror(char, char.V_fixChestFront2, True)
+    names3 = splitname(name3)
+    char.armature.edit_bones[names1[0]].name = "fixChestFront"
+    char.armature.edit_bones[names2[1]].name = "fixChestFront1.L"
+    char.armature.edit_bones[names2[0]].name = "fixChestFront1.R"
+    char.armature.edit_bones[names3[1]].name = "fixChestFront2.L"
+    char.armature.edit_bones[names3[0]].name = "fixChestFront2.R"
     # Add center fix
     bpy.ops.armature.select_all(action='DESELECT')
     char.armature.edit_bones["bBackJ5"].select_tail=True
-    boneMirror(char, char.V_fixChestCenter1, True)
-    boneMirror(char, char.V_fixChestCenter2, True)
-    char.armature.edit_bones['bBackJ5_R'].name = "fixChestCenter1.L"
-    char.armature.edit_bones['bBackJ5_L'].name = "fixChestCenter1.R"
-    char.armature.edit_bones['bBackJ5_R.001'].name = "fixChestCenter2.L"
-    char.armature.edit_bones['bBackJ5_L.001'].name = "fixChestCenter2.R"
+    name1 = boneMirror(char, char.V_fixChestCenter1, True)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_fixChestCenter2, True)
+    names2 = splitname(name2)
+    char.armature.edit_bones[names1[1]].name = "fixChestCenter1.L"
+    char.armature.edit_bones[names1[0]].name = "fixChestCenter1.R"
+    char.armature.edit_bones[names2[1]].name = "fixChestCenter2.L"
+    char.armature.edit_bones[names2[0]].name = "fixChestCenter2.R"
     # Add rear fix
     bpy.ops.armature.select_all(action='DESELECT')
     char.armature.edit_bones["bBackJ5"].select_head=True
-    boneMirror(char, char.V_fixChestBack, False)    
-    boneMirror(char, char.V_fixChestBack1, True)
-    boneMirror(char, char.V_fixChestBack2, True)
-    char.armature.edit_bones['bBackJ5.001'].name = "fixChestBack"
-    char.armature.edit_bones['bBackJ5.001_R'].name = "fixChestBack1.L"
-    char.armature.edit_bones['bBackJ5.001_L'].name = "fixChestBack1.R"
-    char.armature.edit_bones['bBackJ5.001_R.001'].name = "fixChestBack2.L"
-    char.armature.edit_bones['bBackJ5.001_L.001'].name = "fixChestBack2.R"
+    name1 = boneMirror(char, char.V_fixChestBack, False)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_fixChestBack1, True)
+    names2 = splitname(name2)
+    name3 = boneMirror(char, char.V_fixChestBack2, True)
+    names3 = splitname(name3)
+    char.armature.edit_bones[names1[0]].name = "fixChestBack"
+    char.armature.edit_bones[names2[1]].name = "fixChestBack1.L"
+    char.armature.edit_bones[names2[0]].name = "fixChestBack1.R"
+    char.armature.edit_bones[names3[1]].name = "fixChestBack2.L"
+    char.armature.edit_bones[names3[0]].name = "fixChestBack2.R"
     #
     # Upper shoulder
     bpy.ops.armature.select_all(action='DESELECT')
     char.armature.edit_bones["bBackJ5"].select_tail=True
-    boneMirror(char, char.V_fixUpperShoulder1, False)
-    boneMirror(char, char.V_fixUpperShoulder2, True)
-    char.armature.edit_bones['bBackJ5.001'].name = "fixShoulderBack.L"
-    char.armature.edit_bones['bBackJ5.001_R'].name = "fixShoulderBack1.L"
-    char.armature.edit_bones['bBackJ5.001_L'].name = "fixShoulderBack1.R"
+    name1 = boneMirror(char, char.V_fixUpperShoulder1, False)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_fixUpperShoulder2, True)
+    names2 = splitname(name2)
+    char.armature.edit_bones[names1[0]].name = "fixShoulderBack.L"
+    char.armature.edit_bones[names2[1]].name = "fixShoulderBack1.L"
+    char.armature.edit_bones[names2[0]].name = "fixShoulderBack1.R"
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # END COMMON FUNCTION - bui1dHumanUpperBody
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2299,15 +2367,15 @@ def buildCentaurSkeleton():
     buildQuadrupedBase(char) # Start building base of Centaur from the quadruped code
     #
     V_bBackJ1 = (0, .032, 0.1)
-    buildHumanUpperBody(char, "bBackJ0", V_bBackJ1) # Steal the code from the biped
-    setEnvelopeWeights(char) # WAS char.armature.name[:-3]) 
+    buildHumanUpperBody(char, 'qBackJ0', V_bBackJ1) 
+    setEnvelopeWeights(char)
     #
     ob = bpy.context.object
     deselectAll()
-    bpy.data.objects[name].location[2] = z  # 1.14               # WAS char.armature.name[:-3]].location[2] = z  # 1.14
+    bpy.data.objects[name].location[2] = z  # 1.14    
     bpy.ops.object.mode_set(mode='OBJECT')
     bpy.context.view_layer.objects.active = ob
-    bpy.data.objects[name].select_set(True)   # WAS char.armature.name[:-3]].select_set(True)
+    bpy.data.objects[name].select_set(True)
     context.view_layer.objects.active = ob
     ob.select_set(True)
     bpy.context.object.rotation_euler[2] = -1.5708
@@ -2318,16 +2386,20 @@ def buildCentaurSkeleton():
 def buildQuadrupedBase(char):
     bpy.ops.object.mode_set(mode='EDIT')
     V_origin = (0, 0, 0)
-    V_bBackJ0 = (0, .2, 0)
-    bBackJ0 = createBone("bBackJ0", V_origin, V_bBackJ0, 0)
+    V_qBackJ0 = (0, .2, 0)
+
+    qBackJ0 = createBone("qBackJ0", V_origin, V_qBackJ0, 0)
     deselectAll()
-    selectBonePartByName("bBackJ0", tail=True)
-    boneMirror(char, char.V_join, False)
-    boneMirror(char, char.V_drop, False)
-    boneMirror(char, char.V_pelvis, False)
-    char.armature.edit_bones["bBackJ0.001"].name = "join"
-    char.armature.edit_bones["bBackJ0.002"].name = "drop"
-    char.armature.edit_bones["bBackJ0.003"].name = "pelvis"
+    selectBonePartByName("qBackJ0", tail=True)
+    name1 = boneMirror(char, char.V_join, False)
+    names1 = splitname(name1)
+    name2 = boneMirror(char, char.V_drop, False)
+    names2 = splitname(name2)
+    name3 = boneMirror(char, char.V_pelvis, False)
+    names3 = splitname(name3)
+    char.armature.edit_bones[names1[0]].name = "join"
+    char.armature.edit_bones[names2[0]].name = "drop"
+    char.armature.edit_bones[names3[0]].name = "pelvis"
     # 
     # Start mirroring
     V_hip = (0.12, 0, 0)
@@ -2360,76 +2432,71 @@ def buildQuadrupedBase(char):
     char.armature.edit_bones['pelvis_L.006'].name = "toe.R"
     #
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ0"].select_head=True
-    V_bBackJ1 = (0, -0.14, -.06)
-    boneMirror(char, V_bBackJ1, False)
-    V_bBackJ2 = (0, -.11, 0)
-    boneMirror(char, V_bBackJ2, False)
-    V_bBackJ3 = (0, -.12, .02)
-    boneMirror(char, V_bBackJ3, False)
-    V_bBackJ4 = (0, -.12, .02)
-    boneMirror(char, V_bBackJ4, False)
-    V_bBackJ5 = (0, -.14, .01)
-    boneMirror(char, V_bBackJ5, False)
-    char.armature.edit_bones['bBackJ0.001'].name = "bBackJ1"
-    char.armature.edit_bones['bBackJ0.002'].name = "bBackJ2"
-    char.armature.edit_bones['bBackJ0.003'].name = "bBackJ3"
-    char.armature.edit_bones['bBackJ0.004'].name = "bBackJ4"
-    char.armature.edit_bones['bBackJ0.005'].name = "bBackJ5"
+    char.armature.edit_bones["qBackJ0"].select_head=True
+    boneMirror(char, char.V_qBackJ1, False)
+    boneMirror(char, char.V_qBackJ2, False)
+    boneMirror(char, char.V_qBackJ3, False)
+    boneMirror(char, char.V_qBackJ4, False)
+    boneMirror(char, char.V_qBackJ5, False)
+    char.armature.edit_bones['qBackJ0.001'].name = "qBackJ1"
+    char.armature.edit_bones['qBackJ0.002'].name = "qBackJ2"
+    char.armature.edit_bones['qBackJ0.003'].name = "qBackJ3"
+    char.armature.edit_bones['qBackJ0.004'].name = "qBackJ4"
+    char.armature.edit_bones['qBackJ0.005'].name = "qBackJ5"
     #
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ1"].select_head=True
+    char.armature.edit_bones["qBackJ1"].select_head=True
     V_qfixRib1Top = (.1, 0, -.04)
     boneMirror(char, V_qfixRib1Top, True)
     V_qfixRib1B = (0, -.06, -0.4)
     boneMirror(char, V_qfixRib1B, True)
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ1"].select_tail=True
+    char.armature.edit_bones["qBackJ1"].select_tail=True
     V_qfixRib2Top = (.1, .02, 0)
     boneMirror(char, V_qfixRib2Top, True)
     V_qfixRib2B = (0, -.06, -.4)
     boneMirror(char, V_qfixRib2B, True)
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ3"].select_tail=True
+    char.armature.edit_bones["qBackJ3"].select_tail=True
     V_qfixRib3Top = (.1, 0, 0)
     boneMirror(char, V_qfixRib3Top, True)
     V_qfixRib3B = (0, 0, -.38)
     boneMirror(char, V_qfixRib3B, True)
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ4"].select_tail=True
+    char.armature.edit_bones["qBackJ4"].select_tail=True
     V_qfixRib4Top = (.1, 0, 0)
     boneMirror(char, V_qfixRib4Top, True)
     V_qfixRib4B = (0, 0, -.36)
     boneMirror(char, V_qfixRib4B, True)  
-    char.armature.edit_bones['bBackJ1_R'].name = "qfixRib1Top.L"
-    char.armature.edit_bones['bBackJ1_L'].name = "qfixRib1Top.R"
-    char.armature.edit_bones['bBackJ1_R.001'].name = "qfixRib1B.L"
-    char.armature.edit_bones['bBackJ1_L.001'].name = "qfixRib1B.R"
-    char.armature.edit_bones['bBackJ1_R.002'].name = "qfixRib2Top.L"
-    char.armature.edit_bones['bBackJ1_L.002'].name = "qfixRib2Top.R"
-    char.armature.edit_bones['bBackJ1_R.003'].name = "qfixRib2B.L"
-    char.armature.edit_bones['bBackJ1_L.003'].name = "qfixRib2B.R"
-    char.armature.edit_bones['bBackJ3_R'].name = "qfixRib3Top.L"
-    char.armature.edit_bones['bBackJ3_L'].name = "qfixRib3Top.R"
-    char.armature.edit_bones['bBackJ3_R.001'].name = "qfixRib3B.L"
-    char.armature.edit_bones['bBackJ3_L.001'].name = "qfixRib3B.R"
-    char.armature.edit_bones['bBackJ4_R'].name = "qfixRib4Top.L"
-    char.armature.edit_bones['bBackJ4_L'].name = "qfixRib4Top.R"
-    char.armature.edit_bones['bBackJ4_R.001'].name = "qfixRib4B.L"
-    char.armature.edit_bones['bBackJ4_L.001'].name = "qfixRib4B.R"
+    char.armature.edit_bones['qBackJ1_R'].name = "qfixRib1Top.L"
+    char.armature.edit_bones['qBackJ1_L'].name = "qfixRib1Top.R"
+    char.armature.edit_bones['qBackJ1_R.001'].name = "qfixRib1B.L"
+    char.armature.edit_bones['qBackJ1_L.001'].name = "qfixRib1B.R"
+    char.armature.edit_bones['qBackJ1_R.002'].name = "qfixRib2Top.L"
+    char.armature.edit_bones['qBackJ1_L.002'].name = "qfixRib2Top.R"
+    char.armature.edit_bones['qBackJ1_R.003'].name = "qfixRib2B.L"
+    char.armature.edit_bones['qBackJ1_L.003'].name = "qfixRib2B.R"
+    char.armature.edit_bones['qBackJ3_R'].name = "qfixRib3Top.L"
+    char.armature.edit_bones['qBackJ3_L'].name = "qfixRib3Top.R"
+    char.armature.edit_bones['qBackJ3_R.001'].name = "qfixRib3B.L"
+    char.armature.edit_bones['qBackJ3_L.001'].name = "qfixRib3B.R"
+    char.armature.edit_bones['qBackJ4_R'].name = "qfixRib4Top.L"
+    char.armature.edit_bones['qBackJ4_L'].name = "qfixRib4Top.R"
+    char.armature.edit_bones['qBackJ4_R.001'].name = "qfixRib4B.L"
+    char.armature.edit_bones['qBackJ4_L.001'].name = "qfixRib4B.R"
     #  
     # Create Rump with more fixs
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ5"].select_tail=True
+    char.armature.edit_bones["qBackJ5"].select_tail=True
     V_hRumpJ1 = (0, -.16, -.004)
     boneMirror(char, V_hRumpJ1, False)
     V_hRumpJ2 = (0, -.12, -.004)
     boneMirror(char, V_hRumpJ2, False)
     V_hRumpJ3 = (0, -.05, 0)
     boneMirror(char, V_hRumpJ3, False)
-    char.armature.edit_bones['bBackJ5.001'].name = "hRumpJ1"
-    char.armature.edit_bones['bBackJ5.002'].name = "hRumpJ2"
-    char.armature.edit_bones['bBackJ5.003'].name = "hRumpJ3"
+    char.armature.edit_bones['qBackJ5.001'].name = "hRumpJ1"
+    char.armature.edit_bones['qBackJ5.002'].name = "hRumpJ2"
+    char.armature.edit_bones['qBackJ5.003'].name = "hRumpJ3"
     #
     V_hTailJ1 = (0, -.04, .0146)
     boneMirror(char, V_hTailJ1, False)
@@ -2480,19 +2547,19 @@ def buildQuadrupedBase(char):
     char.armature.edit_bones['hRumpJ2.002'].name = "fixSacrum2"
     #
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ5"].select_tail=True
+    char.armature.edit_bones["qBackJ5"].select_tail=True
     V_rearHip = (.16, 0, 0)
     boneMirror(char, V_rearHip, True)
     V_qfix4 = (0, -.16, -.11)
     boneMirror(char, V_qfix4, True)
     V_qfix5 = (0, 0, -.12)
     boneMirror(char, V_qfix5, True)
-    char.armature.edit_bones['bBackJ5_L'].name = "rearHip.R"
-    char.armature.edit_bones['bBackJ5_R'].name = "rearHip.L"
-    char.armature.edit_bones['bBackJ5_R.001'].name = "qfixHind1.L"
-    char.armature.edit_bones['bBackJ5_L.001'].name = "qfixHind1.R"
-    char.armature.edit_bones['bBackJ5_R.002'].name = "qfixHind2.L"
-    char.armature.edit_bones['bBackJ5_L.002'].name = "qfixHind2.R"
+    char.armature.edit_bones['qBackJ5_L'].name = "rearHip.R"
+    char.armature.edit_bones['qBackJ5_R'].name = "rearHip.L"
+    char.armature.edit_bones['qBackJ5_R.001'].name = "qfixHind1.L"
+    char.armature.edit_bones['qBackJ5_L.001'].name = "qfixHind1.R"
+    char.armature.edit_bones['qBackJ5_R.002'].name = "qfixHind2.L"
+    char.armature.edit_bones['qBackJ5_L.002'].name = "qfixHind2.R"
     #
     bpy.ops.armature.select_all(action='DESELECT')
     char.armature.edit_bones["rearHip.L"].select_tail=True
@@ -2526,7 +2593,7 @@ def buildQuadrupedBase(char):
     char.armature.edit_bones['rearHip.R.007'].name = "rearToe.R"
     #
     deselectAll()
-    selectBonePartByName("bBackJ0", tail=True)
+    selectBonePartByName("qBackJ0", tail=True)
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # END COMMON FUNCTION - buildQuadrupedBaase
@@ -2568,7 +2635,7 @@ def buildQuadrupedSkeleton():
     # BUILD HEAD AND NECK
     # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     bpy.ops.armature.select_all(action='DESELECT')
-    char.armature.edit_bones["bBackJ0"].select_tail=True
+    char.armature.edit_bones["qBackJ0"].select_tail=True
     V_qNeckJ1 = (0, .05, 0.1)
     boneMirror(char, V_qNeckJ1, False)   # boneMirror(char, V_rearTibiaJ2, True)
     V_qNeckJ2 = (0, .05, 0.1)
@@ -2581,12 +2648,12 @@ def buildQuadrupedSkeleton():
     boneMirror(char, V_qNeckJ5, False)
     V_qNeckJ6 = (0, .05, .1)
     boneMirror(char, V_qNeckJ6, False)
-    char.armature.edit_bones['bBackJ0.001'].name = "neckJ1"
-    char.armature.edit_bones['bBackJ0.002'].name = "neckJ2"
-    char.armature.edit_bones['bBackJ0.003'].name = "neckJ3"
-    char.armature.edit_bones['bBackJ0.004'].name = "neckJ4"
-    char.armature.edit_bones['bBackJ0.005'].name = "neckJ5"
-    char.armature.edit_bones['bBackJ0.006'].name = "neckJ6"
+    char.armature.edit_bones['qBackJ0.001'].name = "neckJ1"
+    char.armature.edit_bones['qBackJ0.002'].name = "neckJ2"
+    char.armature.edit_bones['qBackJ0.003'].name = "neckJ3"
+    char.armature.edit_bones['qBackJ0.004'].name = "neckJ4"
+    char.armature.edit_bones['qBackJ0.005'].name = "neckJ5"
+    char.armature.edit_bones['qBackJ0.006'].name = "neckJ6"
     #
     # Start head
     V_headBase = (0, 0, 0.09)
@@ -3460,55 +3527,32 @@ def buildWings():  # START BUILDING WINGS %%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+classes = (
+    BUILDBIPED_OT_btn,
+    BUILDCENTAUR_OT_btn,
+    BUILDQUADRUPED_OT_btn,
+    BUILDBIRD_OT_btn,
+    BUILDSPIDER_OT_btn,
+    BUILDWINGS_OT_btn,
+    #
+    POSE_OT_btn,
+    DROPARMS_OT_btn,
+    WALK_OT_btn,
+    RUN_OT_btn,
+    TROT_OT_btn,
+    GALLOP_OT_btn,
+    PACE_OT_btn,
+    HOP_OT_btn,
+    ARMACTION_OT_btn,
+    LEGACTION_OT_btn,
+    #
+    CONTROL_PT_Panel,
+    CHARACTER_OT_control_I,
+    CHARACTER_OT_control_II,
+)
 
+register, unregister = bpy.utils.register_classes_factory(classes)
 
-def register():
-    from bpy.utils import register_class
-    register_class(Biped_Build_Btn)
-    register_class(Centaur_Build_Btn)
-    register_class(Quadruped_Build_Button)
-    register_class(Bird_Build_Button)
-    register_class(Spider_Build_Button)
-    register_class(Wings_Build_Button)
-    #
-    register_class(Pose_Btn)
-    register_class(Drop_Arms_Btn)
-    register_class(Walk_Btn)
-    register_class(Run_Btn)
-    register_class(Trot_Btn)
-    register_class(Gallop_Btn)
-    register_class(Pace_Btn)
-    register_class(Hop_Btn)
-    register_class(Arm_Action_Btn)
-    register_class(Leg_Action_Btn)
-    #
-    register_class(CONTROL_PT_Panel)
-    bpy.utils.register_class(CHARACTER_OT_control_I)
-    bpy.utils.register_class(CHARACTER_OT_control_II)
-
-def unregister():
-    from bpy.utils import unregister_class
-    unregister_class(Biped_Build_Btn)
-    unregister_class(Centaur_Build_Btn)
-    unregister_class(Quadruped_Build_Button)
-    unregister_class(Bird_Build_Button)
-    unregister_class(Spider_Build_Button)
-    unregister_class(Wings_Build_Button)
-    #
-    unregister_class(Pose_Btn)
-    unregister_class(Drop_Arms_Btn)
-    unregister_class(Walk_Btn)
-    unregister_class(Run_Btn)
-    unregister_class(Trot_Btn)
-    unregister_class(Gallop_Btn)
-    unregister_class(Pace_Btn)
-    unregister_class(Hop_Btn)
-    unregister_class(Arm_Action_Btn)
-    unregister_class(Leg_Action_Btn)
-    #
-    unregister_class(CONTROL_PT_Panel)
-    bpy.utils.unregister_class(CHARACTER_OT_control_I)
-    bpy.utils.unregister_class(CHARACTER_OT_control_II)
 
 if __name__ == "__main__":
     register()
