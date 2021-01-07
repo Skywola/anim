@@ -1,5 +1,5 @@
 FOR BLENDER 2.9, PROTOTYPE CODING IS IN THE FILE Animator##.py . . . . TO RUN IT YOU WILL NEED TO PASTE IT
-INTO THE TEXT EDITOR, MOST BUTTONS NOW WORK.  Not all of the needed programming is yet complete, but many of the
+INTO THE TEXT EDITOR.  Not all of the needed programming is yet complete, but many of the
 creatures are functional.  Load into text editor, run, go the 3D View, press n, click the tab and you will see the
 content.
 IF YOU ARE INTERESTED IN LEARNING THE CODE THAT MAKES THIS TYPE OF ANIMATION POSSIBLE, I STRONGLY ADVISE LOOKING AT 
