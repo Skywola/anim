@@ -1,6 +1,7 @@
-FOR BLENDER 2.8, PROTOTYPE CODING IS IN THE FILE Animator##.py . . . . TO RUN IT YOU WILL NEED TO PASTE IT
-INTO THE TEXT EDITOR, MOST BUTTONS NOW WORK for the BIPED.  all of the other skeletons now built, but do not
-have completed programming behind them yet. 
+FOR BLENDER 2.9, PROTOTYPE CODING IS IN THE FILE Animator##.py . . . . TO RUN IT YOU WILL NEED TO PASTE IT
+INTO THE TEXT EDITOR, MOST BUTTONS NOW WORK.  Not all of the needed programming is yet complete, but many of the
+creatures are functional.  Load into text editor, run, go the 3D View, press n, click the tab and you will see the
+content.
 IF YOU ARE INTERESTED IN LEARNING THE CODE THAT MAKES THIS TYPE OF ANIMATION POSSIBLE, I STRONGLY ADVISE LOOKING AT 
 THE PROTOTYPE FILE, not the old files, it is MUCH CLEANER AND BETTER ORGANIZED.  THAT SAID, THIS IS ADVANCED BLENDER 
 PYTHON CODING, NOT FOR THE FAINT OF HEART.  BECAUSE I HAVE SOLVED MOST OF THE MAJOR DIFFICULTIES, I AM POSTING A 
