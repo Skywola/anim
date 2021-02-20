@@ -1,7 +1,7 @@
 FOR BLENDER 2.9, PROTOTYPE - This is the NEW coding, concentrated on object oriented principles, using classes.
-Currently, this is a step back from the previous coding, but the coding is far better in terms of quality and
-understandability.  I am posting this code at this point in case anyone else  is interested in using it, building
-from it . . . 
+Currently, this is a step back from the previous coding, but the coding is far better in terms of quality, 
+understandability, and managability.  I am posting this code at this point in case anyone else  is interested 
+in using it, building from it . . . 
 Coder : Shawn D Irwin (skywola@hotmail.com)
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License 
@@ -12,15 +12,14 @@ implied warranty of MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 Public License for more details.  For a copy of the GNU General Public License, see
 http://www.gnu.org/licenses
 
-This program will allow you (when it is completed) to animate a biped, bird, quadruped, centaur, or 
+When this program is completed, it will allow you to animate a biped, bird, quadruped, centaur, or 
 a spider very rapidly in Blender. (See www.blender.org)
-You just click the button to add the bones, parent the character mesh to the bones, hit 
-the play button, set the speed, and off it goes. You will need to download the Blender file from this site, 
-this is not yet a plugin, I want it to be out for a while before I add it as a plugin. 
+On completeion of this project, you will be able to click a button to add the bones, parent the 
+character mesh to the bones, hit the play button, set the speed, and off it will go. 
 
-INSTRUCTIONS FOR BLENDER 2.79 VERSION OF THIS PLUGIN:
+INSTRUCTIONS FOR BLENDER 2.79:
 Run in the console the animator00.py file, then run the build00.py file in the console. Press the
-play button, and it will start walking.  Note that this is very early prototype code, so using
+play button, and it will start walking.  Note that this is VERY early prototype code, so using
 it for an actual animation at this point is probably possible, but not as good as it will be once
 the project is finished, there is still a long way to go, still need to add shoulder sway, hip sway, 
 etc. and to put up the user interface.
