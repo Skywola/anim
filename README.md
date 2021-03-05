@@ -4,6 +4,18 @@ understandability, and managability.  I am posting this code at this point in ca
 in using it, building from it . . . 
 Coder : Shawn D Irwin (skywola@hotmail.com)
 
+To run this in Blender, because it is still a prototype, I am running it in the console.
+1. Copy the file animator00.py and paste it into the console
+2. Copy the file functions.py and paste it into the console
+3. Copy the file build.py and paste it into the console
+
+This will create the skeleton, and animate it in place (speed is not yet set up).
+This has most of all the needed code methods that will be needed to set up the animation capability that is expected to be in 
+the final plugin, that is, when completed, this program will automatically animate a Biped, Quadruped, Bird, or a Spider.
+Not only that, in this new version, my intent beyond just making it all object oriented is to make it so an artist can
+use components of it to build practically any character they can imagine, because the torso, pelvis, arm, leg, and head
+are all separate objects that can work independently!   I have not yet included any code for the user interface.  
+
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License 
 as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
