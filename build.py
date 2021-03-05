@@ -38,31 +38,6 @@ setActiveArmature(armL)
 
 
 
-
-setActiveArmature(armR)
-
-
-ch2 = Character(b)
-t2 = Torso(ch2)
-p2 = Pelvis(ch2)
-legL2 = Leg(ch2, left)
-legR2 = Leg(ch2, right)
-armL2 = Arm(ch2, left)
-armR2 = Arm(ch2, right)
-head2 = Head(ch2)
-
-setActiveArmature(legL2)
-animateBipedLeg(ch2, legL2, False)  # False is for flip
-setActiveArmature(legR2)
-animateBipedLeg(ch2, legR2, True)
-
-setActiveArmature(armL2)
-dropArm(armL2, -90)
-animateBipedArm(ch2, armL2, False)
-setActiveArmature(armR2)
-dropArm(armR2, 90)
-animateBipedArm(ch2, armR2, True)
-
 '''
 # Biped
 char = Character(b)
